@@ -2,7 +2,7 @@
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
-  name: sealed-ocp
+  name: sealed
 spec: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -161,7 +161,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: sealed-secrets-controller
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
@@ -174,7 +174,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: system:openshift:scc:privileged
-  namespace: sealed-ocp
+  namespace: sealed
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -182,10 +182,10 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: sealed-ocp
+  namespace: sealed
 - kind: ServiceAccount
   name: sealed-secrets-controller
-  namespace: sealed-ocp
+  namespace: sealed
 ---
 # Source: sealed-secrets/templates/cluster-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -253,14 +253,14 @@ subjects:
   - apiGroup: ""
     kind: ServiceAccount
     name: sealed-secrets-controller
-    namespace: sealed-ocp
+    namespace: sealed
 ---
 # Source: sealed-secrets/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: sealed-secrets-controller-key-admin
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
@@ -290,7 +290,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: sealed-secrets-controller-service-proxier
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
@@ -324,7 +324,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: sealed-secrets-controller-key-admin
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
@@ -340,14 +340,14 @@ subjects:
   - apiGroup: ""
     kind: ServiceAccount
     name: sealed-secrets-controller
-    namespace: sealed-ocp
+    namespace: sealed
 ---
 # Source: sealed-secrets/templates/role-binding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: sealed-secrets-controller-service-proxier
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
@@ -369,7 +369,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sealed-secrets-controller
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
@@ -393,7 +393,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sealed-secrets-controller
-  namespace: sealed-ocp
+  namespace: sealed
   labels:
     app.kubernetes.io/name: sealed-secrets
     helm.sh/chart: sealed-secrets-2.13.0
